@@ -31,6 +31,17 @@ public class TodoController {
         return "todo/form";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        Todo todo = todoService.findById(id);
+        if (todo == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "ToDoが見つかりません");
+            return "redirect:/todo";
+        }
+        model.addAttribute("todo", todo);
+        return "todo/edit";
+    }
+
     @PostMapping("/confirm")
     public String confirm(@RequestParam("title") String title, Model model) {
         model.addAttribute("title", title);
@@ -51,12 +62,12 @@ public class TodoController {
         try {
             boolean deleted = todoService.deleteById(id);
             if (deleted) {
-                redirectAttributes.addFlashAttribute("successMessage", "ToDo\u3092\u524a\u9664\u3057\u307e\u3057\u305f");
+                redirectAttributes.addFlashAttribute("successMessage", "ToDoを削除しました");
             } else {
-                redirectAttributes.addFlashAttribute("errorMessage", "\u524a\u9664\u306b\u5931\u6557\u3057\u307e\u3057\u305f");
+                redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました");
             }
         } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("errorMessage", "\u524a\u9664\u306b\u5931\u6557\u3057\u307e\u3057\u305f");
+            redirectAttributes.addFlashAttribute("errorMessage", "削除に失敗しました");
         }
         return "redirect:/todo";
     }

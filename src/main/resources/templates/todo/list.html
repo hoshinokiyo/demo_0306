@@ -26,7 +26,7 @@
                     <th scope="col" style="width: 80px;">ID</th>
                     <th scope="col">タイトル</th>
                     <th scope="col" style="width: 120px;">完了状態</th>
-                    <th scope="col" style="width: 120px;">操作</th>
+                    <th scope="col" style="width: 220px;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,10 +35,13 @@
                     <td th:text="${todo.title}">サンプルタスク</td>
                     <td th:text="${todo.completed} ? '完了' : '未完了'">未完了</td>
                     <td>
-                        <form th:action="@{|/todo/${todo.id}/delete|}" method="post" class="mb-0"
-                              onsubmit="return confirm('本当に削除しますか？');">
-                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
-                        </form>
+                        <div class="d-flex gap-2">
+                            <a th:href="@{|/todo/${todo.id}/edit|}" class="btn btn-outline-primary btn-sm">編集</a>
+                            <form th:action="@{|/todo/${todo.id}/delete|}" method="post" class="mb-0"
+                                  onsubmit="return confirm('本当に削除しますか？');">
+                                <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
