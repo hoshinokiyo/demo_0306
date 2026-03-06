@@ -33,6 +33,11 @@ public class TodoController {
         return "todo/confirm";
     }
 
+    @GetMapping("/complete")
+    public String complete() {
+        return "todo/complete";
+    }
+
     public record TodoItem(Long id, String title, boolean completed) {
     }
 }
