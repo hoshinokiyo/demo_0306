@@ -14,13 +14,18 @@ public class TodoController {
     @GetMapping
     public String list(Model model) {
         List<TodoItem> todos = List.of(
-            new TodoItem(1L, "Spring Bootの学習", false),
-            new TodoItem(2L, "ToDo一覧画面を作成", true),
-            new TodoItem(3L, "登録機能を実装", false)
+            new TodoItem(1L, "Learn Spring Boot", false),
+            new TodoItem(2L, "Create Todo list page", true),
+            new TodoItem(3L, "Implement registration", false)
         );
 
         model.addAttribute("todos", todos);
         return "todo/list";
+    }
+
+    @GetMapping("/new")
+    public String newForm() {
+        return "todo/new";
     }
 
     public record TodoItem(Long id, String title, boolean completed) {
